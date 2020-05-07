@@ -38,7 +38,7 @@ function getSelectedBase() {
 }
 
 function getSelectedDate() {
-  const selectedDate = document.querySelector('#fecha').value;
+  const selectedDate = document.querySelector('#date').value;
   return selectedDate || undefined;
 }
 
