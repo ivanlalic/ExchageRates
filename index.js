@@ -89,11 +89,11 @@ function inputDate() {
 }
 
 function setUp() {
+    inputDate();
+
     getBases().then((rates) => {
         showBasesList(rates);
   });
-
-  inputDate();
 }
 
 setUp();
