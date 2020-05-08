@@ -4,10 +4,28 @@ function getExchangeRates(base = 'EUR', date = 'latest') {
     .then((r) => r.json())
     .then((r) => r.rates);
 }
+/*
+paso de .then() a async/await el fetch de la API
+
+async function getExchangeRates(base = 'EUR', date = 'latest') {
+    const URL = 'https://api.exchangeratesapi.io';
+    const r = await fetch(`${URL}/${date}?base=${base}`);
+    const json = await r.json();
+    return json.rates;
+};
+
+*/
 
 function getBases() {
   return getExchangeRates().then((result) => Object.keys(result).concat('EUR'));
-}
+};
+/*
+async function getBases() {
+  const result = await getExchangeRates();
+  return Object.keys(result).concat('EUR')
+};
+*/
+
 //obtener monedas = getBases→lo que hago con "getBases" es llamar a "getExchangeRates" y obtener un "resultado". A este "resultado"
 //le saco las keys y le agrego la base EUR
 
@@ -47,13 +65,27 @@ function showUpdateSign() {
 }
 
 
+async function update() {
+  showUpdateSign();
+  const rates = await getExchangeRates(getSelectedBase(), getSelectedDate());
+  showRates(rates);
+}
+
+  /*
+Replace .then for update() with async await
+
 function update() {
   showUpdateSign();
-  getExchangeRates(getSelectedBase(), getSelectedDate())
-    .then((rates) => {
+  getExchangeRates(getSelectedBase(), getSelectedDate()).then((rates) => {
       showRates(rates);
     });
-}
+→
+  async function update() {
+    showUpdateSign();
+    const rates = await getExchangeRates(getSelectedBase(), getSelectedDate());
+    showRates(rates);
+  };
+  */
 
 // showBasesList
 function showBasesList(bases) {
@@ -94,6 +126,7 @@ function setUp() {
     getBases().then((rates) => {
         showBasesList(rates);
   });
+
 }
 
 setUp();
